@@ -121,3 +121,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# personal
+componenttib/**/*.pyc
+componenttib/**/*.bak
+nohup.out
+tmp/
+.project
+.settings/
+.pydevproject
+db.sqlite3
