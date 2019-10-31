@@ -1,0 +1,92 @@
+
+<link href="/componenttib/static/css/componentList.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+function listComponent(callNode){
+	//console.log($(callNode).attr("src"));
+	url=$(callNode).attr("url")
+	$.getJSON(url,function(responseData,statusTxt,xhr){
+	    if(statusTxt=="error")
+	    		alert("Error: "+xhr.status+": "+xhr.statusText);
+	    else{
+		    	var componentLinkList=$("#componentLinkList");
+		    	componentLinkList.empty();
+		    	$("#componentDataTable thead tr").empty();
+		    	$("#componentDataTable tbody").empty();
+		    	$.each(responseData, function(key,value){
+		    		//console.log(key);console.log(value);
+		    		//backup var txt1="<p>Text.</p>";// 以 HTML 创建新元素
+		    		//backup var li=document.createElement("li");// 以 DOM 创建新元素
+		    		var span=$("<span></span>").text(key);// 以 jQuery 创建新元素
+		    		span.attr({
+		    		    "url" : value,
+		    		    "onclick" : "listData(this)"
+		    		  });
+		    		componentLinkList.append($("<li></li>").append(span));// 追加新元素
+	    	    });
+	    }
+	});
+}
+function listData(callNode){
+	//console.log($(callNode).attr("src"));
+	url=$(callNode).attr("url")
+	$.getJSON(url,function(responseData,statusTxt,xhr){
+	    if(statusTxt=="error")
+	    		alert("Error: "+xhr.status+": "+xhr.statusText);
+	    else{
+		    	var thead_tr=$("#componentDataTable thead tr");
+		    	thead_tr.empty();
+		    	thead_tr.append("<th>add</th>");
+		    	for(var key in responseData[0]){
+		    		//console.log(key);
+		    		thead_tr.append($("<th></th>").text(key));// 追加新元素
+		    	}
+		    	var tbody=$("#componentDataTable tbody");
+		    	tbody.empty();
+		    	$.each(responseData, function(index,line){//数组
+		    		var tbody_tr=$("<tr></tr>");
+		    		var tbody_tr_td="<td>"+"<button type=\"button\" class=\"button blue\" onclick=\"addRow5Data(this)\" style=\"width:20px;height:20px;\" value=\"+\">+</button>"+"</td>";
+		    		tbody_tr.append(tbody_tr_td);
+			    	$.each(line, function(key,value){//字典
+			    		//console.log(key);console.log(value);
+			    		var tbody_tr_td="<td>"+value+"</td>";
+			    		var value_lenMax=30;
+			    		if(typeof value=="string"&&value.length>value_lenMax){
+			    			//console.log(typeof value=="string");
+			    			var valueTemp=value.substring(0,value_lenMax)+"...";
+			    			tbody_tr_td="<td content='"+value+"'; onmouseover=\"textShow5Truncate(30,this)\" onmouseout=\"this.innerHTML='"+valueTemp+"'\">"+valueTemp+"</td>";
+			    		}else{
+			    			tbody_tr_td="<td content='"+value+"'>"+value+"</td>";
+			    		}
+		    			//tbody_tr_td.text(value);
+			    		tbody_tr.append(tbody_tr_td);
+			    	});
+			    	tbody.append(tbody_tr);
+	    	    });
+	    }
+	});
+}
+</script>
+<!-- CONTENT -->
+<div style="margin:30px 0px 30px 50px;width:100%;text-align:center;">
+	<p>Component</p>
+	<ul id="organismLinkList">
+		{% for navLink in navL1LinkList %}
+			<li><span url="{{ navLink.get_absolute_url }}" onclick="listComponent(this)" >{{ navLink.organism }}</span></li>
+		{% endfor %}
+	</ul>
+</div>
+
+<div style="margin:30px 0px 30px 50px;width:100%;text-align:center;clear:left;">
+	<ul id="componentLinkList">
+	</ul>
+
+	<table id="componentDataTable" class="gridtable show-hide">
+		<thead>
+		    <tr>
+		    </tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>

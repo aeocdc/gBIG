@@ -1,0 +1,148 @@
+{%extends "componenttib/base.html"%}
+
+
+<!-- head -->
+{%block head_link%}
+    {{block.super}}
+{%endblock%}
+{%block head_script%}
+	{{block.super}}
+	<script type="text/javascript">
+	//模型文件选择还是提交
+	function modelUseTypeClick(triggerObj){
+		if (triggerObj.value=="select"){//backup if (effectedObj.style.display=="none"){
+			//select
+			document.querySelector("#selectModelDiv").style.display="block";
+			document.querySelector("#uploadModelP").style.display="none";
+			//effectedObj.style.display="inline";
+			//backup triggerObj.innerHTML="Hide";
+			//backup triggerObj.value="Hide";
+		}else{
+			//upload
+			document.querySelector("#selectModelDiv").style.display="none";
+			document.querySelector("#uploadModelP").style.display="block";
+			//backup triggerObj.innerHTML="Show";
+			//backup triggerObj.value="Show";
+			//svg.parentNode.removeChild(svg);//backup
+		}
+	}
+	</script>
+{%endblock%}
+
+{%block head_title%}{{queryName}}{%endblock%}
+
+<!-- CONTENT -->
+{%block content%}
+
+
+<div style="margin:50px 0px 50px 0px;width:100%;">
+	<div style="margin:50px 0px 10px 0px;width:100%;padding-left:200px;"><h3>Design sgRNA for target gene inactivation via base-editing</h3>
+	<!--backup <div>
+		<p>Component sequence <button type="button" class="button blue" onclick="triggerShow5Hide('#show8Word',this)" value="Hide">Hide</button></p>
+		<div id="show8Word"></div>-->
+	</div>
+		<form enctype="multipart/form-data" action="{% url 'sgrna' 'sgrna5Design' %}" method="post">
+			{% csrf_token %}    
+	<div style="margin:50px 0px 50px 0px;width:50%;padding-left:200px;padding-right:100px;float:left;">
+
+		<fieldset>
+			<legend>PAM Type</legend>
+				<div class="form-group">
+					<div style="margin-left: 20px; margin-right: 20px;">
+						<p><b>CRISPR/Cas variant </b></p>
+					</div>
+					<div style="margin-left: 30px; margin-right: 20px;">
+						<div class="radio">
+							<label><input type="radio" name="pam_type" id="sgRNAcas9-NGG" value="sgRNAcas9-NGG" checked /> SpCas9 from Streptococcus pyogenes: 5'-NGG-3'</label>
+						</div>
+						
+						<div class="radio">
+							<label><input type="radio" name="pam_type" id="sgRNAcas9-NAG" value="sgRNAcas9-NAG"  /> SpCas9 from Streptococcus pyogenes: 5'-NAG-3'</label>
+						</div>   
+						
+						<div class="radio">
+							<label><input type="radio" name="pam_type" id="sgRNAcas9-NGCG" value="sgRNAcas9-NGCG"  /> VRER SpCas9 from Streptococcus pyogenes: 5'-NGCG-3'</label>
+						</div>
+						
+						<div class="radio">
+							<label><input type="radio" name="pam_type" id="sgRNAcas9-NGA" value="sgRNAcas9-NGA"  /> VQR SpCas9 from Streptococcus pyogenes: 5'-NGA-3'</label>
+						</div>
+						
+						<div class="radio">
+							<label><input type="radio" name="pam_type" id="sgRNAcas9-NGT" value="sgRNAcas9-NGT"  /> xCas9 3.7 (TLIKDIV SpCas9) from Streptococcus pyogenes: 5'-NGT-3'</label>
+						</div>
+						
+						<div class="radio">
+							<label><input type="radio" name="pam_type" id="sgRNAcas9-NGN" value="sgRNAcas9-NGN"  /> SpCas9-NG (VRVRFRR SpCas9) from Streptococcus pyogenes: 5'-NG-3'</label>
+						</div>
+					</div>
+				</div>
+		</fieldset>
+		<fieldset>
+			<legend>Base Editor Type</legend>
+				<div style="margin-left: 30px; margin-right: 20px;">
+					<div style="margin:0px 40px 0px 40px;">
+						<div class="radio">
+							<label><input type="radio" name="base_editor_type" id="Target_AID1" value="Target_AID1" checked /><b>Target-AID<sup> 1</sup></b></label>
+						</div>
+						<img src="/componenttib/static/image/Target_AID.png" height="70"/>
+					</div>
+					<div style="margin:0px 40px 0px 40px;">
+						<div class="radio">
+							<label><input type="radio" name="base_editor_type" id="BE2" value="BE2"  /><b>BE<sup> 2</sup></b></label>
+						</div>
+						<img src="/componenttib/static/image/BE.png" height="70"/>
+					</div>
+					<p><sup>1</sup> Nishida K, Arazoe T, Yachie N, Banno S, Kakimoto M, Tabata M, Mochizuki M, Miyabe A, Araki M, Hara KY, Shimatani Z, Kondo A. 2016. Targeted nucleotide editing using hybrid prokaryotic and vertebrate adaptive immune systems. Science 353:aaf8729.</p>
+					<p><sup>2</sup> Komor AC, Kim YB, Packer MS, Zuris JA, Liu DR. 2016. Programmable editing of a target base in genomic DNA without double-stranded DNA cleavage. Nature 533:420–424.</p>
+				</div>
+		</fieldset>
+	</div>
+	<div style="margin:50px 0px 50px 0px;width:50%;padding-left:100px;padding-right:200px;float:right;">
+        <fieldset>
+            <legend>Reference Genome</legend>
+            <p>Chose <span title="select or upload reference genome">{{form.modelUseType.errors}}{{form.modelUseType}}</span></p>
+            <p id="uploadModelP" style="display:none">Upload reference genome (Fasta format)<span title="reference genome file">{{form.referenceFile8Upload.errors}}{{form.referenceFile8Upload}}</span></p>
+            <div id="selectModelDiv" style="display:block">
+                <p>Select reference genome <button type="button" class="button blue" onclick="triggerShow5Hide('#modelTabDiv',this)" value="Hide" style="width:70px;">Hide</button></p>
+                <div id="modelTabDiv">
+                <table class="gridtable">
+                    <div style="margin-left: 20px; margin-right: 20px;">
+                        <p><b>Genomes</b></p>
+                    </div>
+                    <div style="margin-left: 30px; margin-right: 20px;">
+                        
+                    <div class="radio">
+                        <label><input type="radio" name="ref_seq" id="ASM584v2" value="ASM584v2" checked /> Escherichia coli str. K-12 substr. MG1655</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="ref_seq" id="ASM1132v1" value="ASM1132v1"  /> Corynebacterium glutamicum ATCC 13032</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="ref_seq" id="ASM904v1" value="ASM904v1"  /> Bacillus subtilis 168</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="ref_seq" id="NC_001136.10" value="NC_001136.10"  /> Saccharomyces cerevisiae S288C</label>
+                    </div>
+					<div class="radio">
+                        <label><input type="radio" name="ref_seq" id="GRCh38.p12" value="GRCh38.p12"  /> Homo sapiens (GRCh38.p12)</label>
+                    </div>
+                    </div>
+                </table>
+				</div>
+			</div>
+        </fieldset>
+		<fieldset>
+			<legend>Upload target gene</legend>
+			<p>Fasta format. Sequence of expressed region is required for eukaryotic genes.</p>
+			<p>Upload inactivated target gene <span title="target gene file">{{form.geneFile8Upload.errors}}{{form.geneFile8Upload}}</span></p>
+			<p>Email address <span title="Email address">{{form.userEmail.errors}}{{form.userEmail}}</span></p>
+			<p><button type="submit" class="button blue" value="Design">Design</button></p>
+		</fieldset>
+		
+    </div>
+    </form>
+</div>
+
+
+{%endblock%}

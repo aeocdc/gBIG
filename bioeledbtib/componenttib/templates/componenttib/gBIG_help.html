@@ -1,0 +1,172 @@
+{%extends "componenttib/base.html"%}
+
+
+<!-- head -->
+{%block head_link%}
+    {{block.super}}
+{%endblock%}
+
+{%block head_title%}{{queryName}}{%endblock%}
+
+<!-- CONTENT -->
+{%block content%}
+
+
+<div style="margin:50px 0px 50px 0px;width:100%;">
+	<div style="margin:50px 0px 10px 0px;width:100%;padding-left:200px;padding-right:200px;"><h3>User Guide to gBIG</h3>
+	<h4>gBIG: Online tool for designing <b>g</b>RNAs for <b>B</b>ase editor-mediated <b>I</b>nactivation of <b>G</b>enes</h4>
+	<p><a href="gBIG.html">Back to the gBIG.</a></p>
+	<p><b>Citation information:</b></p>
+	<h4>gRNA design process on gBIG</h4>
+	<img src="/componenttib/static/image/gRNA design process on gBIG.png" height="350"/>
+	<h4>Inputs</h4>
+	<p>gBIG supports DNA sequence inputs in the form FASTA files. <b>Space</b> and <b>"_"</b> should be avoided in the target gene name.</p>
+	<p>Example for target gene:</p>
+	<p>>Cgl0413</p>
+	<p>ATGGGTTCTGTCATCAAGAAGCGCCGCAAGCGCATGTCCAAGAAGAAGCACCGCAAGATGCTGCGCCGTACTCGTGTCCAGCGTAGAAAATTGGGCAAGTA...</p>
+	<p>Example for reference genome:</p>
+	<p>>Corynebacterium_glutamicum_ATCC13032</p>
+	<p>GTGAGCCAGAACTCATCTTCTTTGCTCGAAACCTGGCGCCAAGTTGTTGCCGATCTCACAACTTTGAGCCAGCAAGCGGACAGTGGATTCGACCCATTGAC...</p>
+	<h4>Outputs</h4>
+	<p>There are 31 columns in the output file <b>"sgRNA_result_editable.csv"</b></p>
+	<table>
+		<tr>
+			<th scope="col">Item</th>
+			<th scope="col">Info</th>
+		</tr>
+		<tr>
+			<td>sgRNA_ID</td>
+			<td>ID for each sgRNA</td>
+		</tr>
+		<tr>
+			<td>Start</td>
+			<td>The start position of sgRNA in the target gene</td>
+		</tr>
+		<tr>
+			<td>End</td>
+			<td>The end position of sgRNA in the target gene</td>
+		</tr>
+		<tr>
+			<td>CRISPR_target_sequence (5'-3')</td>
+			<td>CRISRP target sequence (5'-3'), containing PAM</td>
+		</tr>
+		<tr>
+			<td>sgRNA_Sequence</td>
+			<td>sgRNA sequence (5'-3')</td>
+		</tr>
+			<td>PAM_Sequence</td>
+			<td>PAM sequence</td>
+		</tr>
+		<tr>
+			<td>CRISPR_target_sequence_Length (nt)</td>
+			<td>Length of CRISPR target sequence containing PAM (nt)</td>
+		</tr>
+		<tr>
+			<td>GC%</td>
+			<td>GC content of CRISPR target sequence</td>
+		</tr>
+		<tr>
+			<td>1st_target_codon</td>
+			<td>The first target codon</td>
+		</tr>
+		<tr>
+			<td>Editable_for_forming_an_early_stop_codon</td>
+			<td>"1" represents this codon can be edited to form an early stop codon. "0" represents this codon can be edited but no early stop codon will be generated</td>
+		</tr>
+			<td>Position_of_C_inside_gRNA</td>
+			<td>Position of the target C inside the gRNA</td>
+		</tr>
+		<tr>
+			<td>Position_of_C_inside_the_gene (%)</td>
+			<td>Position of the target C inside the gene (%)</td>
+		</tr>
+		<tr>
+			<td>2nd_target_codon</td>
+			<td>The second target codon</td>
+		</tr>
+		<tr>
+			<td>Editable_for_forming_an_early_stop_codon</td>
+			<td>"1" represents this codon can be edited to form an early stop codon. "0" represents this codon can be edited but no early stop codon will be generated</td>
+		</tr>
+		<tr>
+			<td>Position_of_C_inside_gRNA</td>
+			<td>Position of the target C inside the gRNA</td>
+		</tr>
+		<tr>
+			<td>Position_of_C_inside_the_gene (%)</td>
+			<td>Position of the target C inside the gene (%)</td>
+		</tr>
+		<tr>
+			<td>M0_OT</td>
+			<td>On-target site. 0M_OT>1 represents repeat genes or off-target sites with 0 mismatch</td>
+		</tr>
+		<tr>
+			<td>M1_OT</td>
+			<td>No. of off-target sites with 1 mismatch</td>
+		</tr>
+		<tr>
+			<td>M2_OT</td>
+			<td>No. of off-target sites with 2 mismatches</td>
+		</tr>
+			<td>M3_OT</td>
+			<td>No. of off-target sites with 3 mismatches</td>
+		</tr>
+		<tr>
+			<td>M4_OT</td>
+			<td>No. of off-target sites with 4 mismatches</td>
+		</tr>
+		<tr>
+			<td>M5_OT</td>
+			<td>No. of off-target sites with 5 mismatches</td>
+		</tr>
+		<tr>
+			<td>Total_No.of_OT</td>
+			<td>Total No. of off-target sites</td>
+		</tr>
+		<tr>
+			<td>M0_POT</td>
+			<td>Perfect match to the 12-nt seed region of the sgRNA and 0 mismatch in the outer segments</td>
+		</tr>
+		<tr>
+			<td>M1_POT</td>
+			<td>Perfect match to the 12-nt seed region of the sgRNA and 1 mismatch in the outer segments</td>
+		</tr>
+		<tr>
+			<td>M2_POT</td>
+			<td>Perfect match to the 12-nt seed region of the sgRNA and 2 mismatches in the outer segments</td>
+		</tr>
+		<tr>
+			<td>M3_POT</td>
+			<td>Perfect match to the 12-nt seed region of the sgRNA and 3 mismatches in the outer segments</td>
+		</tr>
+		<tr>
+			<td>M4_POT</td>
+			<td>Perfect match to the 12-nt seed region of the sgRNA and 4 mismatches in the outer segments</td>
+		</tr>
+			<td>M5_POT</td>
+			<td>Perfect match to the 12-nt seed region of the sgRNA and 5 mismatches in the outer segments</td>
+		</tr>
+		<tr>
+			<td>Total_No.of_POT</td>
+			<td>Total number of off-targets sites with perfect match to the 12-nt seed region of the sgRNA</td>
+		</tr>
+		<tr>
+			<td>Risk_evaluation</td>
+			<td>Evaluation of off-target risk</td>
+		</tr>
+	</table>
+	<p>
+	<b>Notes:</b> OT stands for off-targets, which contain all types of off-target sites; POT stands for potential off-target, only contain off-targets which are
+	perfect match to the 12-nt seed region of the guide RNA, while outer segments contain mismatched bases.
+	</p>
+	<p>Off-target risk of guide RNA:</p>
+	<p>Discard > High_risk > moderate_risk> low_risk > repeat_sites_or_bad > Best</p>
+	<p><b>Notes:</b> gBIG is free for academic, nonprofit, and personal use.</p>
+	<p>If you have any questions, please contact us: yangyi@tib.cas.cn.</p>
+	<p>Copyright © 2019, Tianjin Institute of Industrial Biotechnology, Chinese Academy of Sciences</p>
+
+	{{httpString | safe}}	
+</div>
+
+
+{%endblock%}

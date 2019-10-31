@@ -1,0 +1,39 @@
+/* ----------------------------------- component list ----------------------------------- */
+
+ul#organismLinkList,#componentLinkList{
+	float:left;
+	margin:5px 0px;
+	padding:0px;
+}
+ul#organismLinkList li,ul#componentLinkList li{
+	margin:3px 5px;
+	border-radius:20px;
+	padding:0px;
+	list-style-type:none;
+}
+ul#organismLinkList li{
+	float:left;
+	border:1px solid #0000ff;
+}
+ul#componentLinkList li{
+	border:1px solid #8080ff;
+}
+
+ul#organismLinkList span,ul#componentLinkList span{
+	display:block;
+	margin:0px 15px;
+	padding:2px 7px;
+	text-align:center;
+	text-decoration:none;
+	font-weight:bold;
+	font-size:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#1e7db9;
+}
+ul#organismLinkList span:link,span:visited,ul#componentLinkList span:link,span:visited{
+	background-color:rgb(248,248,248);
+}
+ul#organismLinkList span:hover,span:active,ul#componentLinkList span:hover,span:active{
+	background-color:rgb(240,240,240);
+	cursor:pointer;
+}

@@ -1,0 +1,33 @@
+{%extends "componenttib/base.html"%}
+
+
+<!-- head -->
+{%block head_link%}
+    {{block.super}}
+{%endblock%}
+
+{%block head_title%}{{queryName}}{%endblock%}
+
+<!-- CONTENT -->
+{%block content%}
+
+
+<div style="margin:50px 0px 50px 0px;width:100%;">
+	<div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;"><h3>Desgin sgRNA for target gene inactivation</h3>
+	<!--backup <div>
+		<p>Component sequence <button type="button" class="button blue" onclick="triggerShow5Hide('#show8Word',this)" value="Hide">Hide</button></p>
+		<div id="show8Word"></div>-->
+	</div>
+	<div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;">
+		<form enctype="multipart/form-data" action="{% url 'sgrna' 'sgrna5Design' %}" method="post">
+			{% csrf_token %}
+			<p>Upload inactivated target gene <span title="target gene file">{{form.geneFile8Upload.errors}}{{form.geneFile8Upload}}</span></p>
+			<p>Upload reference genome <span title="reference genome file">{{form.referenceFile8Upload.errors}}{{form.referenceFile8Upload}}</span></p>
+			<p>Email address <span title="Email address">{{form.userEmail.errors}}{{form.userEmail}}</span></p>
+			<p><button type="submit" class="button blue" value="Design">Design</button></p>
+		</form>
+	</div>
+</div>
+
+
+{%endblock%}

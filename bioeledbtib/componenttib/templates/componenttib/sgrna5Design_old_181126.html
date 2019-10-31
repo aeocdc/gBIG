@@ -1,0 +1,238 @@
+{%extends "componenttib/base.html"%}
+
+
+<!-- head -->
+{%block head_link%}
+    {{block.super}}
+{%endblock%}
+{%block head_script%}
+	{{block.super}}
+	<script type="text/javascript">
+	//模型文件选择还是提交
+	function modelUseTypeClick(triggerObj){
+		if (triggerObj.value=="select"){//backup if (effectedObj.style.display=="none"){
+			//select
+			document.querySelector("#selectModelDiv").style.display="block";
+			document.querySelector("#uploadModelP").style.display="none";
+			//effectedObj.style.display="inline";
+			//backup triggerObj.innerHTML="Hide";
+			//backup triggerObj.value="Hide";
+		}else{
+			//upload
+			document.querySelector("#selectModelDiv").style.display="none";
+			document.querySelector("#uploadModelP").style.display="block";
+			//backup triggerObj.innerHTML="Show";
+			//backup triggerObj.value="Show";
+			//svg.parentNode.removeChild(svg);//backup
+		}
+	}
+	</script>
+{%endblock%}
+
+{%block head_title%}{{queryName}}{%endblock%}
+
+<!-- CONTENT -->
+{%block content%}
+
+
+<div style="margin:50px 0px 50px 0px;width:100%;">
+	<div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;"><h3>Desgin sgRNA for target gene inactivation</h3>
+	<!--backup <div>
+		<p>Component sequence <button type="button" class="button blue" onclick="triggerShow5Hide('#show8Word',this)" value="Hide">Hide</button></p>
+		<div id="show8Word"></div>-->
+	</div>
+	<div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;">
+		<form enctype="multipart/form-data" action="{% url 'sgrna' 'sgrna5Design' %}" method="post">
+			{% csrf_token %}
+        <fieldset>
+            <legend>PAM Type</legend>
+                <div class="form-group">
+                    <div style="margin-left: 20px; margin-right: 20px;">
+                        <p><b>CRISPR/Cas-derived RNA-guided Endonucleases (RGENs)</b></p>
+                    </div>
+                    <div style="margin-left: 30px; margin-right: 20px;">
+                        <div class="radio">
+                            <label><input type="radio" name="pam_type" id="sgRNAcas9-NAG" value="sgRNAcas9-NAG" checked /> sgRNAcas9-NAG</label>
+                        </div>
+                            
+                        <div class="radio">
+                            <label><input type="radio" name="pam_type" id="sgRNAcas9-NGA" value="sgRNAcas9-NGA"  /> sgRNAcas9-NGA</label>
+                        </div>
+                                
+                        <div class="radio">
+                            <label><input type="radio" name="pam_type" id="sgRNAcas9-NGCG" value="sgRNAcas9-NGCG"  /> sgRNAcas9-NGCG</label>
+                        </div>
+                        
+                        <div class="radio">
+                            <label><input type="radio" name="pam_type" id="sgRNAcas9-NGG" value="sgRNAcas9-NGG"  /> sgRNAcas9-NGG</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="pam_type" id="sgRNAcas9-NGN" value="sgRNAcas9-NGN"  /> sgRNAcas9-NGN</label>
+                        </div>
+                        
+                        <div class="radio">
+                            <label><input type="radio" name="pam_type" id="sgRNAcas9-NGT" value="sgRNAcas9-NGT"  /> sgRNAcas9-NGT</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="pam_type" id="Original" value="Original"  /> Original</label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Reference Genome</legend>
+                <p>Chose <span title="select or upload reference genome">{{form.modelUseType.errors}}{{form.modelUseType}}</span></p>
+                <p id="uploadModelP" style="display:none">Upload reference genome<span title="reference genome file">{{form.referenceFile8Upload.errors}}{{form.referenceFile8Upload}}</span></p>
+                <div id="selectModelDiv" style="display:block">
+                    <p>Select reference genome <button type="button" class="button blue" onclick="triggerShow5Hide('#modelTabDiv',this)" value="Hide" style="width:70px;">Hide</button></p>
+                    <div id="modelTabDiv">
+                    <table class="gridtable">
+                        <div style="margin-left: 20px; margin-right: 20px;">
+                            <p><b>Genomes</b></p>
+                        </div>
+                        <div style="margin-left: 30px; margin-right: 20px;">
+                            
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM584v2" value="ASM584v2" checked /> Escherichia coli (ASM584v2)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="WBcel235" value="WBcel235"  /> Caenorhabditis elegans (WBcel235)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM285v2" value="ASM285v2"  /> Aspergillus niger (ASM285v2)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM20389v1" value="ASM20389v1"  /> Paracoccus denitrificans (ASM20389v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM24809v3" value="ASM24809v3"  /> Lactobacillus mucosae LM1 (ASM24809v3)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM1132v1" value="ASM1132v1"  /> Corynebacterium glutamicum ATCC 13032 (ASM1132v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM19595v2" value="ASM19595v2"  /> Mycobacterium tuberculosis (ASM19595v2)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM756v2" value="ASM756v2"  /> Pseudomonas putida KT2440 (ASM756v2)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM876v1" value="ASM876v1"  /> Clostridium acetobutylicum ATCC 824 (ASM876v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM78543v1" value="ASM78543v1"  /> Burkholderia sacchari (ASM78543v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="GCF_001274345" value="GCF_001274345"  /> Human papillomavirus (GCF_001274345)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM19603v1" value="ASM19603v1"  /> Listeria monocytogenes (ASM19603v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM83310v2" value="ASM83310v2"  /> Clostridium beijerinckii (ASM83310v2)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM34088v1" value="ASM34088v1"  /> Clostridium saccharoperbutylacetonicum (ASM34088v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM164265v1" value="ASM164265v1"  /> Clostridium tyrobutyricum (ASM164265v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM103862v1" value="ASM103862v1"  /> Clostridium carboxidivorans P7 (ASM103862v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM1650v1" value="ASM1650v1"  /> Clostridium kluyveri DSM 555 (ASM1650v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM102095v1" value="ASM102095v1"  /> Thioalkalivibrio versutus (ASM102095v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM74664v1" value="ASM74664v1"  /> Acinetobacter baumannii (ASM74664v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM732v1" value="ASM732v1"  /> Fusobacterium nucleatum subsp. nucleatum ATCC 25586 (ASM732v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM16498v2" value="ASM16498v2"  /> Paenibacillus polymyxa SC2( ASM16498v2)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM38963v1" value="ASM38963v1"  /> Clostridium pasteurianum BC1 (ASM38963v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM674v1" value="ASM674v1"  /> Vibrio cholerae O1 biovar El Tor str. N16961 (ASM674v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM170931v1" value="ASM170931v1"  /> Pantoea agglomerans (ASM170931v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM19617v1" value="ASM19617v1"  /> Bdellovibrio bacteriovorus HD100 (ASM19617v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM34872v1" value="ASM34872v1"  /> Bdellovibrio exovorus JSS (ASM34872v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM1500v1" value="ASM1500v1"  /> Mycobacterium smegmatis (ASM1500v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM21037v1" value="ASM21037v1"  /> Arthrospira platensis (ASM21037v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM904v1" value="ASM904v1"  /> Bacillus subtilis (ASM904v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM82700v1" value="ASM82700v1"  /> Streptomyces albus (ASM82700v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM1312v1" value="ASM1312v1"  /> Anaplasma phagocytophilum (ASM1312v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="SM704v1" value="SM704v1"  /> Streptococcus pneumoniae (SM704v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM898v1" value="ASM898v1"  /> Francisella tularensis (ASM898v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM686v1" value="ASM686v1"  /> Lactococcus lactis (ASM686v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM55076v1" value="ASM55076v1"  /> Komagataeibacter xylinus (ASM55076v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM872v1" value="ASM872v1"  /> Chlamydia trachomatis (ASM872v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM20383v1" value="ASM20383v1"  /> Streptomyces coelicolor (ASM20383v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM164247v1" value="ASM164247v1"  /> Fonsecaea monophora (ASM164247v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM14527v1" value="ASM14527v1"  /> Clostridium cellulovorans 743B (ASM14527v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM676v1" value="ASM676v1"  /> Pseudomonas aeruginosa PAO1 (ASM676v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM848v1" value="ASM848v1"  /> Legionella pneumophila (ASM848v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM2186v1" value="ASM2186v1"  /> Rhodobacter capsulatus SB 1003 (ASM2186v1)</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="ref_seq" id="ASM1290v2" value="ASM1290v2"  /> Rhodobacter sphaeroides 2.4.1(ASM1290v2)</label>
+                        </div>
+                        </div>
+                    </table>
+					</div>
+				</div>
+            </fieldset>
+            
+            <p>Upload inactivated target gene <span title="target gene file">{{form.geneFile8Upload.errors}}{{form.geneFile8Upload}}</span></p>
+            <p>Email address <span title="Email address">{{form.userEmail.errors}}{{form.userEmail}}</span></p>
+            <p><button type="submit" class="button blue" value="Design">Design</button></p>
+		</form>
+	</div>
+</div>
+
+
+{%endblock%}

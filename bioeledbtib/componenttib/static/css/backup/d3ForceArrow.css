@@ -1,0 +1,43 @@
+path.link {
+	fill: none;
+	stroke: #666;
+	stroke-width: 1.5px;
+}
+
+marker#activator {
+	fill: red;
+}
+marker#repressor {
+	fill: blue;
+}
+marker#dual {
+	fill: purple;
+}
+
+marker#noma {
+	fill: white;
+}
+
+path.link.activator {
+	stroke: red;
+}
+path.link.repressor {
+	stroke: blue;
+}
+path.link.dual {
+	stroke: purple;
+}
+path.link.unknown {
+	stroke: black;
+	stroke-dasharray: 0,2 1;
+}
+
+path.link.noma {
+	stroke: black;
+}
+
+circle {
+  stroke: #c0c0c0;
+  stroke-width: 1px;
+}
+

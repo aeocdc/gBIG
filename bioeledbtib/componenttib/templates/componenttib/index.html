@@ -1,0 +1,56 @@
+{%extends "componenttib/base.html"%}
+
+
+<!-- head -->
+{%block head_title%}Welcome{%endblock%}
+
+
+<!-- body -->
+{%block content%}
+<div style="margin:50px 0px 50px 0px;width:100%;text-align:center;">
+	<p style="padding:0px 150px 0px 150px;text-align:justify;font-size:20px;font-family:verdant;font-weight:bold;">
+	Welcome to componenttib.
+	</p>
+</div>
+<div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;">
+	<p>There are {{resultCount}} record{{ resultCount|pluralize }}.</p>
+	<div>
+	{% if resultCount > 0 %}
+		<table class="gridtable">
+			<thead>
+				<tr>
+				{% for title in resultTitle %}
+				    <th>{{title}}</th>
+				{% endfor %}
+				</tr>
+			</thead>
+		    <tbody>
+		    {% for line in resultData %}
+				<tr>
+				{% for term in line %}
+					<td>{{term}}</td>
+				{% endfor %}
+				</tr>
+		    {% endfor %}
+		    </tbody>
+		</table>
+	{% endif %}
+	</div>	
+</div>
+<div style="margin:50px 0px 50px 0px;width:100%;text-align:center;">
+	<form enctype="multipart/form-data" action="{% url 'search4enzymetib' %}" method="post">
+		{% csrf_token %}
+		<p style="padding:0px 150px 0px 150px;text-align:center;font-size:20px;font-family:verdant;font-weight:bold;">
+		Search by
+		<select name="symbolType" id="id_symbolType">
+			<option value="enzymeId" selected="selected">enzyme Id</option>
+			<option value="substrateName">substrate Name</option>
+			<option value="productName">product Name</option>
+		</select>
+		for
+		<span title="example: enzyme Id: KRED027 | substrate Name: COBE | product Name: ATS-4"><input id="id_symbolValue" type="text" name="symbolValue" maxlength="50" /></span>
+		<button type="submit" class="button blue" value="Search">Search</button></p>
+	</form>
+</div>
+{%endblock%}
+ 

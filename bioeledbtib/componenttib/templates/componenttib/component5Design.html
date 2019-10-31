@@ -1,0 +1,20 @@
+{%extends "componenttib/base.html"%}
+
+
+<!-- head -->
+{%block head_link%}
+    {{block.super}}
+{%endblock%}
+
+{%block head_title%}{{queryName}}{%endblock%}
+
+<!-- CONTENT -->
+{%block content%}
+
+
+{% include 'componenttib/designModule.html' %}
+
+{% include 'componenttib/componentList.html' %}
+
+
+{%endblock%}

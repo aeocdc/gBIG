@@ -1,0 +1,243 @@
+{%extends "componenttib/base.html"%}
+
+
+<!-- head -->
+{%block head_script%}
+    {{block.super}}
+    <link href="/componenttib/static/css/bootstrap.min.css" rel="stylesheet">    
+	<script src="/componenttib/static/js/jquery.min.js" charset="UTF-8" type="text/javascript"></script>
+	<script src="/componenttib/static/js/bootstrap.min.js" charset="UTF-8" type="text/javascript"></script>
+	
+	<script src="/componenttib/static/js/trigger.js" charset="UTF-8" type="text/javascript"></script>
+	<script src="/componenttib/static/js/addSymbol.js" charset="UTF-8" type="text/javascript"></script>
+	
+    <link href="/componenttib/static/css/bootstrap-directional-buttons.css" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript">
+	function decorateSequence() {
+		var assembleComponentList={{assembleComponentList|safe}}
+		var primerDataList={{primerDataList|safe}}
+		//console.log(assembleComponentList);
+		// alert(c);
+		var seqNodeSs=$("<div></div>");
+		var seqNodeDs=$("<div></div>");
+		seqLineLen=30;
+		var lineNumNode=$("<span></span>").attr("style","float:left;");
+		var lineCount=0;
+		residueLen=seqLineLen;
+		$.each(assembleComponentList, function(index,component){//数组
+			//console.log(component["name"]);
+			var strContent=component["sequence"]; 
+			var strTemp=""; 
+			function revSeq(dna_seq){
+				rev_seq = ''
+		        complement = {'A':'T','G':'C','C':'G','T':'A'};
+				for (var i = 0; i < dna_seq.length; i++) {
+					//console.log(dna_seq.charAt(i)+"\t"+complement[dna_seq.charAt(i)])
+					rev_seq += complement[dna_seq.charAt(i)];
+				}
+		        return rev_seq;
+			}
+			function blankSeq(dna_seq,residueLen){
+				bla_seq = ''
+				for (var i = 0; i < dna_seq.length; i++) {
+					if((i+(seqLineLen-residueLen))%10==0&&(i+(seqLineLen-residueLen))%seqLineLen!=0)
+						bla_seq+="&#160;&#160;&#160;&#160;";
+					bla_seq+=dna_seq.charAt(i);
+				}
+		        return bla_seq;
+			}
+			function prefixSeqNode(seqNode,type){
+				seqNode.append(lineNumNode.clone().text((lineCount*seqLineLen+1)+"- "));
+				seqNode.append($("<br/>"));
+				if(type=="ss"){
+					var prefix=$("<span>5\'&#160;&#160;&#160;&#160;</span>");
+				}else{
+					var prefix=$("<span>5\'&#160;&#160;&#160;&#160;<br/>3\'&#160;&#160;&#160;&#160;</span>");
+				}
+				seqNode.append(prefix.attr("style","float:left;"));
+			}
+			function contentSeqNode(seqNode,type,seq,residueLen){
+				if(type=="ss"){
+					seqNode.append($("<span>"+blankSeq(seq,residueLen)+"</span>").attr("style","border: solid "+eleType_colorDic[component["eleType"]]+";border-width:0px 0px 2px 0px;float:left;"));
+				}else{
+					seqNode.append($("<span>"+blankSeq(seq,residueLen)+"<br/>"+blankSeq(revSeq(seq),residueLen)+"</span>").attr("style","background-color: "+eleType_colorDic[component["eleType"]]+";float:left;"));
+				}
+			}
+			function suffixSeqNode(seqNode,type){
+				if(type=="ss"){
+					var suffix=$("<span>&#160;&#160;&#160;&#160;3\'</span>");
+				}else{
+					var suffix=$("<span>&#160;&#160;&#160;&#160;3\'<br/>&#160;&#160;&#160;&#160;5\'</span>");
+				}
+				seqNode.append(suffix.attr("style","float:left;"));
+				if(type=="ss"){
+					seqNode.append($("<br/><br/>"));
+				}else{
+					seqNode.append($("<br/><br/><br/>"));
+				}
+			}
+			function append(){
+				if(residueLen==seqLineLen){
+					prefixSeqNode(seqNodeSs,"ss");
+					prefixSeqNode(seqNodeDs,"ds");
+					lineCount++;
+				}
+				contentSeqNode(seqNodeSs,"ss",strTemp,residueLen);
+				contentSeqNode(seqNodeDs,"ds",strTemp,residueLen);
+				residueLen=residueLen-strTemp.length;
+				if(residueLen==0){
+					suffixSeqNode(seqNodeSs,"ss");
+					suffixSeqNode(seqNodeDs,"ds");
+					residueLen=seqLineLen;
+				}
+			}
+			//begin
+			strTemp=strContent.substr(0,residueLen);
+			strContent=strContent.substr(residueLen,strContent.length); 
+			append();
+			//normal
+			while(strContent.length>seqLineLen){ 
+				strTemp=strContent.substr(0,seqLineLen);
+				strContent=strContent.substr(seqLineLen,strContent.length); 
+				append();
+			} 
+			//end
+			strTemp=strContent;
+			append();
+			
+		    	/* $.each(component, function(key,value){//字典
+		    		//console.log(key);console.log(value);
+		    	}); */
+    	    });
+		//seqNode.append($("<span></span>").text("3\'"));
+		$("#showSingleSequenceDiv").append(seqNodeSs);
+		$("#showDoubleSequenceDiv").append(seqNodeDs);
+	}
+	</script>
+{%endblock%}
+{%block head_title%}{{queryName}}{%endblock%}
+
+{%block body_tag%}
+<body onload="show8Pic({{assembleComponentList}},&quot;show8Pic&quot;)">
+{%endblock%}
+
+{%block content%}
+<!-- CONTENT -->
+<div id="CONTENT">
+	<!-- <div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;">
+		<p>{{assembleComponentList}}</p>
+	</div>
+	 -->
+	{% if assembleComponentListDict %}
+	<div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;">
+		<form enctype="multipart/form-data" action="{% url 'assemble' 'sendAssemble' %}" method="post">
+			{% csrf_token %}
+			<p>Please check following information first.
+			Send information to laboratory? <button type="submit" class="button blue" value="Send">Send</button></p>
+		</form>
+	</div>
+	{% endif %}
+	{% if assembleComponentListDict %}
+	<div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;">
+		<p>Assemble component list <button type="button" class="button blue" onclick="triggerShow5Hide('#assembleComponentListDiv',this)" value="Hide">Hide</button></p>
+		<div id="assembleComponentListDiv">
+	    	<table id="assembleComponentListTable" class="gridtable show-hide">
+			<thead>
+			    <tr>
+			    	<th>name</th>
+			    	<th>eleType</th>
+			    	<th>direction</th>
+			    	<th>sequence</th>
+			    </tr>
+			</thead>
+			<tbody>
+				{% for assembleComponent in assembleComponentListDict %}
+				<tr>
+					<td>{{assembleComponent.name}}</td>
+					<td>{{assembleComponent.eleType}}</td>
+					<td>{{assembleComponent.direction}}</td>
+					<td>{{assembleComponent.sequence}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			</table>
+		</div>
+	</div>
+	{% endif %}
+	
+	<div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;">
+		<div>        
+			<p>Assemble component <button type="button" class="button blue" onclick="triggerShow5Hide('#show8Pic',this)" value="Hide">Hide</button></p>
+	    	<div id="show8Pic"></div>
+	    </div>
+	</div>
+	
+	{% if assembleComponentList %}
+	<div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;">
+		<p>Assembled complete sequence <button type="button" class="button blue" onclick="triggerShow5Hide('#showSequenceDiv',this)" value="Hide">Hide</button></p>
+		<div id="showSequenceDiv">
+			<div class="container-fluid">
+				<div class="col-md-12">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#panel-1" data-toggle="tab">Single Stranded</a></li>
+						<li><a href="#panel-2" data-toggle="tab">Double Stranded</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="panel-1"><div id="showSingleSequenceDiv"></div></div>
+						<div class="tab-pane" id="panel-2"><div id="showDoubleSequenceDiv"></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		decorateSequence()
+	</script>
+	{% endif %}
+	
+	{% if primerDataListDict %}
+	<div style="margin:50px 0px 50px 0px;width:100%;padding-left:300px;">
+		<p> Primer <button type="button" class="button blue" onclick="triggerShow5Hide('#primerDataTableDiv',this)" value="Hide">Hide</button></p>
+		<div id="primerDataTableDiv">
+			{% for primerData in primerDataListDict %}
+	    	<table id="primerDataTable" class="gridtable show-hide">
+			<thead>
+			    <tr>
+			    	{% if primerData.warningStr %}
+			    	<th style="color:red;">warning</th>
+					{% endif %}
+			    	<th>former component</th>
+			    	<th>middle component</th>
+			    	<th>latter component</th>
+			    	<th>forward primer sequence(5'->3')</th>
+			    	<th>reverse primer sequence(5'->3')</th>
+			    	<th>forward primer GC percent</th>
+			    	<th>reverse primer GC percent</th>
+			    	<th>forward primer TM Value</th>
+			    	<th>reverse primer TM Value</th>
+			    </tr>
+			</thead>
+			<tbody>
+				<tr>
+			    	{% if primerData.warningStr %}
+			    	<td><em>{{primerDict.warningStr}}</em></td>
+					{% endif %}
+					<td>{{primerData.formerName}}</td>
+					<td>{{primerData.middleName}}</td>
+					<td>{{primerData.latterName}}</td>
+					<td>{{primerData.forward_sequence}}</td>
+					<td>{{primerData.reverse_sequence}}</td>
+					<td>{{primerData.forward_gcPercent}}</td>
+					<td>{{primerData.reverse_gcPercent}}</td>
+					<td>{{primerData.forward_tmValue}}</td>
+					<td>{{primerData.reverse_tmValue}}</td>
+				</tr>
+			</tbody>
+			</table>
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
+</div>
+{%endblock%}

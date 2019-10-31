@@ -1,0 +1,49 @@
+create database componenttib;
+
+grant all on componenttib.* to 'webservice'@'localhost' identified by 'webservice@web';
+
+use componenttib;
+
+#user_submit
+create table user_submit(id int primary key auto_increment not null,assembleComponentList text,len_ha int,submit_time DATETIME);
+
+
+#promoter
+create table promoter(id int primary key auto_increment not null,name varchar(200),organism varchar(200),sequence text,parts_type varchar(200),inducible_or_constitutive varchar(200),strength_our_lab int,reference_paper text);
+load data local infile 'promoter.txt' into table promoter fields terminated by '\t' ignore 1 lines (organism,parts_type,name,sequence,inducible_or_constitutive,strength_our_lab,reference_paper);
+
+#promoter_function_module
+create table promoter_function_module(id int primary key auto_increment not null,name varchar(200),organism varchar(200),sequence text,parts_type varchar(200),inducible_or_constitutive varchar(200),strength_our_lab int,reference_paper text,original_source varchar(200));
+load data local infile 'promoter_function_module.txt' into table promoter_function_module fields terminated by '\t' ignore 1 lines (organism,parts_type,name,sequence,inducible_or_constitutive,strength_our_lab,reference_paper,original_source);
+
+#terminator
+create table terminator(id int primary key auto_increment not null,name varchar(200),organism varchar(200),sequence text,parts_type varchar(200),strength_our_lab int,reference_paper text);
+load data local infile 'terminator.txt' into table terminator fields terminated by '\t' ignore 1 lines (organism,parts_type,name,sequence,strength_our_lab,reference_paper);
+
+#terminator_function_module
+create table terminator_function_module(id int primary key auto_increment not null,name varchar(200),organism varchar(200),sequence text,parts_type varchar(200),strength_our_lab int,reference_paper text,original_source varchar(200));
+load data local infile 'terminator_function_module.txt' into table terminator_function_module fields terminated by '\t' ignore 1 lines (organism,parts_type,name,sequence,strength_our_lab,reference_paper,original_source);
+
+#origin
+create table origin(id int primary key auto_increment not null,name varchar(200),organism varchar(200),sequence text,parts_type varchar(200),copy_number_our_lab int,reference_paper text);
+load data local infile 'origin.txt' into table origin fields terminated by '\t' ignore 1 lines (organism,parts_type,name,sequence,copy_number_our_lab,reference_paper);
+
+#origin_function_module
+create table origin_function_module(id int primary key auto_increment not null,name varchar(200),organism varchar(200),sequence text,parts_type varchar(200),copy_number_our_lab int,reference_paper text,original_source varchar(200));
+load data local infile 'origin_function_module.txt' into table origin_function_module fields terminated by '\t' ignore 1 lines (organism,parts_type,name,sequence,copy_number_our_lab,reference_paper,original_source);
+
+#selection_marker
+create table selection_marker(id int primary key auto_increment not null,name varchar(200),organism varchar(200),sequence text,parts_type varchar(200),application_in_other_organism varchar(200),reference_paper text);
+load data local infile 'selection_marker.txt' into table selection_marker fields terminated by '\t' ignore 1 lines (organism,parts_type,name,sequence,application_in_other_organism,reference_paper);
+
+#selection_marker_function_module
+create table selection_marker_function_module(id int primary key auto_increment not null,name varchar(200),organism varchar(200),sequence text,parts_type varchar(200),application_in_other_organism varchar(200),reference_paper text,original_source varchar(200));
+load data local infile 'selection_marker_function_module.txt' into table selection_marker_function_module fields terminated by '\t' ignore 1 lines (organism,parts_type,name,sequence,application_in_other_organism,reference_paper,original_source);
+
+
+
+
+
+
+
+

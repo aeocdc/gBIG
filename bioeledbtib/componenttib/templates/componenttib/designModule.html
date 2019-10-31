@@ -1,0 +1,52 @@
+
+
+<!-- head -->
+<script src="/componenttib/static/js/trigger.js" charset="UTF-8" type="text/javascript"></script>
+<script src="/componenttib/static/js/addSymbol.js" charset="UTF-8" type="text/javascript"></script>
+
+<link href="/componenttib/static/css/bootstrap-directional-buttons.css" rel="stylesheet" type="text/css" />
+
+
+<script type="text/javascript">
+	window.onload=function(){
+		addRow();
+	}//backup addRow();//在addTable之后，否则addTable还未加载，无法找到
+</script>
+
+<!-- CONTENT -->
+<div style="margin:50px 0px 50px 0px;width:100%;text-align:center;">									
+	<p> Click this button to show/hide the component table <button type="button" class="button blue" onclick="triggerShow5Hide('#symbolDiv1',this)" value="Hide">Hide</button></p>
+	<div id="symbolDiv1">
+    	<table id="addTable" class="gridtable show-hide">
+        	<thead>
+            	<tr>
+                	<th>delete</th>
+                	<th>add</th>
+                	<th>name</th>
+                	<th>parts_type</th>
+                	<th>direction(+/-/0)</th>
+                	<th>sequence</th>
+                	<th>target gene</th>
+            	</tr>
+         	</thead>
+        	<tbody>
+        	</tbody>
+		</table>
+		<p><button type="button" class="button blue" onclick="terify2add()" value="Show">Show</button></p>
+		<!-- <p><button type="button" class="button blue" onclick="CheckReaRow()" value="Check Reaction">Check-Search</button></p> -->
+	</div>
+</div>
+<div style="margin:50px 0px 50px 0px;width:100%;text-align:center;">
+	<div>        
+		<p>Assemble component <button type="button" class="button blue" onclick="triggerShow5Hide('#show8Pic',this)" value="Hide">Hide</button></p>
+        <div id="show8Pic"></div>
+	<!--backup <div>
+		<p>Component sequence <button type="button" class="button blue" onclick="triggerShow5Hide('#show8Word',this)" value="Hide">Hide</button></p>
+		<div id="show8Word"></div>-->
+	</div>
+	<form id="addForm" style="display:none;" enctype="multipart/form-data" action="{% url 'assemble' 'designModule' %}" method="post">
+		{% csrf_token %}
+		<p>Length of homologous arm<span title="Length of homologous arm"><input type="number" name="len_ha" min="0" /></span></p>
+		<p><button type="submit" class="button blue" value="Assemble">Assemble</button></p>
+	</form>
+</div>

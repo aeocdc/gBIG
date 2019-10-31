@@ -1,0 +1,20 @@
+{%extends "componenttib/base.html"%}
+
+
+<!-- head -->
+{%block head_link%}
+    {{block.super}}
+{%endblock%}
+
+{%block head_title%}{{queryName}}{%endblock%}
+
+<!-- CONTENT -->
+{%block content%}
+
+
+<div style="margin:50px 0px 50px 0px;width:100%;text-align:center;">
+	{{httpString | safe}}	
+</div>
+
+
+{%endblock%}
