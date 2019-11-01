@@ -11,4 +11,5 @@ COPY bioeledbtib ./bioeledbtib
 COPY outlab ./outlab
 
 WORKDIR /tmp/bioeledbtib
+RUN chmod 755 /tmp/bioeledbtib/componenttib/cas-offinder
 CMD python manage.py runserver 0.0.0.0:8888
