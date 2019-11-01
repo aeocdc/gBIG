@@ -1,7 +1,7 @@
 # gBIG enviroments
 FROM dmmcquay/python2.7.10
 MAINTAINER  yangyi@tib.cas.cn
-RUN yum update  -y && yum upgrade -y && yum install -y --no-install-recommends \
+RUN apt-get update  -y && apt-get upgrade -y && apt-get install -y --no-install-recommends \
       bzip2 \
       g++ \
       git \
