@@ -1,18 +1,6 @@
 # gBIG enviroments
 FROM dmmcquay/python2.7.10
 MAINTAINER  yangyi@tib.cas.cn
-RUN apt-get update  -y && apt-get upgrade -y && apt-get install -y --no-install-recommends \
-      bzip2 \
-      g++ \
-      git \
-      graphviz \
-      libgl1-mesa-glx \
-      libhdf5-dev \
-      openmpi-bin \
-      wget && \
-    rm -rf /tmp/*
-
-
 WORKDIR /tmp
 
 COPY requirements.txt ./requirements.txt
