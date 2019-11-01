@@ -3,7 +3,7 @@ FROM dmmcquay/python2.7.10
 MAINTAINER  yangyi@tib.cas.cn
 WORKDIR /tmp
 
-COPY requirements.txt ./requirements.txt
+COPY requirement.txt ./requirement.txt
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 RUN pip install -r requirements.txt
 COPY ref/ ./ref
