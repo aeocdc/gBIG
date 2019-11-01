@@ -5,7 +5,7 @@ WORKDIR /tmp
 
 COPY requirement.txt ./requirement.txt
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-RUN pip install -r requirements.txt
+RUN pip install -r requirement.txt
 COPY ref/ ./ref
 COPY bioeledbtib ./bioeledbtib
 COPY outlab ./outlab
