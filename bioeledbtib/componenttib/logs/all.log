@@ -1,0 +1,144 @@
+2017-03-06 14:48:25,526-[ERROR]-[MainProcess(13512)>Thread-5(11600)] [componenttib.dbOperator:25 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme where (enzymeId)=('KRED006')
+Traceback (most recent call last):
+  File "F:\15\bioeledbtib\componenttib\dbOperator.py", line 20, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-03-06 14:49:52,210-[ERROR]-[MainProcess(13360)>Thread-4(3172)] [componenttib.dbOperator:25 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme where (enzymeId)=('KRED006')
+Traceback (most recent call last):
+  File "F:\15\bioeledbtib\componenttib\dbOperator.py", line 20, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-03-06 14:53:28,397-[ERROR]-[MainProcess(9424)>Thread-1(8800)] [componenttib.dbOperator:25 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme where (enzymeId)=('KRED006')
+Traceback (most recent call last):
+  File "F:\15\bioeledbtib\componenttib\dbOperator.py", line 20, in sqlSelect
+    sqlResultData=[[str(inner_2.decode('utf-8')) for inner_2 in inner_1] for inner_1 in sqlResultData]
+AttributeError: 'NoneType' object has no attribute 'decode'
+2017-05-02 14:40:03,101-[ERROR]-[MainProcess(12388)>Thread-6(9360)] [componenttib.dbOperator:25 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "F:\15\bioeledbtib\componenttib\dbOperator.py", line 17, in sqlSelect
+    logger.debug(dbCursor.execute(sqlString))
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 202, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+ProgrammingError: (1146, "Table 'componenttib.enzyme' doesn't exist")
+2017-05-02 20:12:39,260-[ERROR]-[MainProcess(7352)>Thread-1(14752)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct name,sequence from component
+Traceback (most recent call last):
+  File "F:\15\bioeledbtib\componenttib\util\dbOperator.py", line 15, in sqlSelect
+    dbCursor.execute(sqlString)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 202, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+OperationalError: (1054, "Unknown column 'name' in 'field list'")
+2017-05-02 20:13:00,608-[ERROR]-[MainProcess(7352)>Thread-4(13704)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct name,sequence from component
+Traceback (most recent call last):
+  File "F:\15\bioeledbtib\componenttib\util\dbOperator.py", line 15, in sqlSelect
+    dbCursor.execute(sqlString)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 202, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+OperationalError: (1054, "Unknown column 'name' in 'field list'")
+2017-05-02 20:14:06,463-[ERROR]-[MainProcess(13896)>Thread-1(12260)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct name,sequence from component
+Traceback (most recent call last):
+  File "F:\15\bioeledbtib\componenttib\util\dbOperator.py", line 15, in sqlSelect
+    dbCursor.execute(sqlString)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 202, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+OperationalError: (1054, "Unknown column 'name' in 'field list'")
+2017-06-20 00:37:12,526-[ERROR]-[MainProcess(126589)>uWSGIWorker2Core0(139758762055616)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 15, in sqlSelect
+    dbCursor.execute(sqlString)
+  File "/usr/local/lib/python2.7/site-packages/MySQL_python-1.2.5-py2.7-linux-x86_64.egg/MySQLdb/cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "/usr/local/lib/python2.7/site-packages/MySQL_python-1.2.5-py2.7-linux-x86_64.egg/MySQLdb/connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+ProgrammingError: (1146, "Table 'componenttib.enzyme' doesn't exist")
+2017-06-20 00:38:27,062-[ERROR]-[MainProcess(126636)>uWSGIWorker1Core0(140003530467264)] [componenttib.dbOperator:25 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/dbOperator.py", line 17, in sqlSelect
+  File "/usr/local/lib/python2.7/site-packages/MySQL_python-1.2.5-py2.7-linux-x86_64.egg/MySQLdb/cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "/usr/local/lib/python2.7/site-packages/MySQL_python-1.2.5-py2.7-linux-x86_64.egg/MySQLdb/connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+ProgrammingError: (1146, "Table 'componenttib.enzyme' doesn't exist")
+2017-06-20 00:39:02,910-[ERROR]-[MainProcess(126681)>uWSGIWorker1Core0(140144257333184)] [componenttib.dbOperator:25 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/dbOperator.py", line 17, in sqlSelect
+  File "/usr/local/lib/python2.7/site-packages/MySQL_python-1.2.5-py2.7-linux-x86_64.egg/MySQLdb/cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "/usr/local/lib/python2.7/site-packages/MySQL_python-1.2.5-py2.7-linux-x86_64.egg/MySQLdb/connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+ProgrammingError: (1146, "Table 'componenttib.enzyme' doesn't exist")
+2017-06-20 00:39:07,796-[ERROR]-[MainProcess(126681)>uWSGIWorker1Core2(140144023127808)] [componenttib.dbOperator:25 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/dbOperator.py", line 17, in sqlSelect
+  File "/usr/local/lib/python2.7/site-packages/MySQL_python-1.2.5-py2.7-linux-x86_64.egg/MySQLdb/cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "/usr/local/lib/python2.7/site-packages/MySQL_python-1.2.5-py2.7-linux-x86_64.egg/MySQLdb/connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+ProgrammingError: (1146, "Table 'componenttib.enzyme' doesn't exist")
+2017-06-20 01:32:04,989-[ERROR]-[MainProcess(128061)>uWSGIWorker2Core0(139648814454720)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 01:33:40,176-[ERROR]-[MainProcess(128153)>uWSGIWorker1Core0(140218084145088)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 01:33:45,130-[ERROR]-[MainProcess(128153)>uWSGIWorker1Core2(140217849939712)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 01:35:57,103-[ERROR]-[MainProcess(128213)>uWSGIWorker1Core0(140649888704448)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 01:40:33,292-[ERROR]-[MainProcess(128307)>uWSGIWorker1Core0(140421078063040)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 01:41:34,650-[ERROR]-[MainProcess(128308)>uWSGIWorker2Core0(140421078063040)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 01:54:24,463-[ERROR]-[MainProcess(128653)>uWSGIWorker1Core0(140197127772096)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 01:54:28,015-[ERROR]-[MainProcess(128653)>uWSGIWorker1Core3(140196883076864)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 01:55:00,754-[ERROR]-[MainProcess(128654)>uWSGIWorker2Core0(140197127772096)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 01:55:04,338-[ERROR]-[MainProcess(128654)>uWSGIWorker2Core1(140196904056576)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 01:55:26,412-[ERROR]-[MainProcess(128654)>uWSGIWorker2Core3(140196883076864)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
+2017-06-20 02:16:24,343-[ERROR]-[MainProcess(129096)>uWSGIWorker1Core0(140719114340288)] [componenttib.util.dbOperator:22 | dbOperator:sqlSelect]: select distinct enzymeId,substrateName,productName from enzyme
+Traceback (most recent call last):
+  File "./componenttib/util/dbOperator.py", line 19, in sqlSelect
+    sqlResultData=[[str(inner_2) for inner_2 in inner_1] for inner_1 in sqlResultData]
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
