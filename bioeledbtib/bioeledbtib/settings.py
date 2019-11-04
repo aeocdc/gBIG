@@ -45,8 +45,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'enzymetib',
+
+    #'enzymetib',
     'componenttib',
 )
 
@@ -130,7 +130,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     #'/path/to/others/static/',  # 用不到的时候可以不写这一行
 )
- 
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -203,17 +203,17 @@ LOGGING = {
         'developing':{
             'handlers': ['file_debug','console_warning'],
             'level': 'DEBUG',
-            'propagate': False         
+            'propagate': False
         },
         'enzymetib':{
             'handlers': ['file_enzymetib','file_warning',],
             'level': 'INFO',
-            'propagate': False         
+            'propagate': False
         },
         'componenttib':{
             'handlers': ['file_componenttib','file_warning',],
             'level': 'INFO',
-            'propagate': False         
+            'propagate': False
         },
         'django.request': {
             'handlers': ['mail_admins'],
