@@ -1,0 +1,9 @@
+create database enzymetib character set utf8;
+
+drop database enzymetib;
+
+use enzymetib;
+
+create table enzyme(id int primary key auto_increment not null,enzymeId varchar(100),substrateName varchar(200),productName varchar(200));
+
+load data local infile 'enzyme.txt' into table enzyme fields terminated by '\t' lines terminated by '\r\n' ignore 1 lines (enzymeId,substrateName,productName);

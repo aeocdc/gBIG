@@ -1,0 +1,3 @@
+enzymeId	substrateName	productName
+KRED006	戊醛(酶活检测用pH6.0 buffer)	\N
+KRED027	COBE	ATS-4

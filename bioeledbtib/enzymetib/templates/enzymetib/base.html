@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <title>{% block head_title %}默认标题{% endblock %} - Enzyme</title>
+        
+ 	<meta http-equiv="Content-Style-Type" content="text/css" />
+   	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+    {%block head_link%}	
+   	<link rel="stylesheet" href="/enzymetib/static/css/bioeledbtib.css" type="text/css" />
+	{%endblock%}
+	{%block head_script%}{%endblock%}
+</head>
+<body>
+
+	{% include 'enzymetib/navTop.html' %}
+
+	<div id="mainContent">
+	{% block content %}
+		<div>这里是默认内容，所有继承自这个模板的，如果不覆盖就显示这里的默认内容。</div>
+	{% endblock %}
+	</div>
+</body>
+</html>
