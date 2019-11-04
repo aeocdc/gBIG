@@ -1,0 +1,18 @@
+{%extends "enzymetib/base.html"%}
+
+
+<!-- head -->
+{%block head_title%}{{queryName}}{%endblock%}
+
+
+<!-- CONTENT -->
+{%block content%}
+<div style="margin:50px 0px 50px 0px;width:100%;text-align:center;">
+	<form enctype="multipart/form-data" action="{% url 'search4enzymetib' %}" method="post">
+		{% csrf_token %}
+		<p>Search by {{form.symbolType.errors}}{{form.symbolType}}
+		for <span title="example: enzyme Id: KRED027 | substrate Name: COBE | product Name: ATS-4">{{form.symbolValue.errors}}{{form.symbolValue}}</span>
+		<button type="submit" class="button blue" value="Search">Search</button></p>
+	</form>
+</div>
+{%endblock%}
