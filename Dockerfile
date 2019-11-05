@@ -1,6 +1,7 @@
 # gBIG enviroments
 FROM dmmcquay/python2.7.10
 MAINTAINER  yangyi@tib.cas.cn
+RUN apt-get update && apt-get install -y --no-install-recommends vim
 RUN mkdir -p /home/webservice/
 WORKDIR /home/webservice/
 
