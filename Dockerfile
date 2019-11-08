@@ -22,4 +22,6 @@ COPY bioeledbtib ./bioeledbtib
 COPY outlab ./outlab
 
 WORKDIR /home/webservice/bioeledbtib
+RUN python manage.py makemigrations
+RUN python manage.py migrate
 CMD python manage.py runserver 0.0.0.0:8888

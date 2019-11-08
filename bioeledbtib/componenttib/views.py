@@ -33,7 +33,7 @@ def selectData(tableName,fieldNameArray,parameterDic):
     #prepare db
     import util.dbOperator as dbor
     dbConn,dbCursor=dbor.prepareDb()
-    
+
     #fetch data
     sqlString="select distinct "+(",".join(fieldNameArray))+" from "+tableName
     if (parameterDic):
@@ -44,14 +44,14 @@ def selectData(tableName,fieldNameArray,parameterDic):
             parameterTitle.append(k)
         sqlString=sqlString+" where ("+(",".join(parameterTitle))+")=('"+("','".join(parameterData))+"')"
 #     logger.debug(sqlString)
-    
+
     sqlResultData,sqlResultCount=dbor.sqlSelect(sqlString,dbCursor)
 #     logger.debug(sqlResultCount)
     #close
     dbConn.close()
     return sqlResultData,sqlResultCount
 
-#template mange           
+#template mange
 def htmlPage(queryName,):
     htmlDict={"component5Design":"component5Design","designModule":"assembleSequence","sendAssemble":"httpString","gBIG":"httpString","gBIG_help":"httpString"}
     inputHtmlPath=os.path.join(htmlFolderPath, queryName+'.html').replace('\\', '/')
@@ -68,7 +68,7 @@ def sgrna(request,queryName="gBIG"):
         form=formDict[queryName](request.POST,request.FILES)
         if form.is_valid():# 如果提交的数据合法
             formData=form.cleaned_data
-            
+
             if queryName=="gBIG":
                 pam_value=request.POST.get("pam_type")
                 if pam_value=='sgRNAcas9-NAG':
@@ -83,7 +83,7 @@ def sgrna(request,queryName="gBIG"):
                     sgrnaAppFilePath="/home/webservice/outlab/cas9/sgRNAcas9_3.0.5/New_pl/sgRNAcas9-NGN.pl"
                 elif pam_value=='sgRNAcas9-NGT':
                     sgrnaAppFilePath="/home/webservice/outlab/cas9/sgRNAcas9_3.0.5/New_pl/sgRNAcas9-NGT.pl"
-                    
+
                 geneFile8Upload=formData["geneFile8Upload"]
                 userEmail=formData["userEmail"]
                 #
@@ -122,20 +122,20 @@ def sgrna(request,queryName="gBIG"):
                     elif ref_value=='hs_ref_GRCh38.p12_chr1':
                         referenceFilePath="/home/webservice/ref/hs_ref_GRCh38.p12_chr1.fna"
                         refname='hs_ref_GRCh38.p12_chr1'
-                        
+
                 elif(modelUseType=="upload"):
                     referenceFile8Upload=formData["referenceFile8Upload"]
                     referenceFilePath=uploadFile(uploadedFile=referenceFile8Upload,saveFolder=taskSpacePath,preName="referenceFile")#upload and save file
                     refname=referenceFile8Upload.name
                 #return web page information
-                wetlab_email='yangyi@tib.cas.cn'
+                wetlab_email='aeocdctibcas@163.com'
                 httpString="<div><h3>Desgin sgRNA for target gene inactivation</h3></div>\
                             <div><p>PAM type is <br/>"+pam_value+"</p>\
                                 <p>Base editor type is <br/>"+base_editor_value+"</p>\
                                 <p>Target gene file is <br/>"+geneFile8Upload.name+"</p>\
                                 <p>Reference genome file is <br/>"+refname+"</p>\
                                 <p>SgRNA will be sent to "+userEmail+"</p>\
-                                <p>Please contact to <a href\""+wetlab_email+"\">"+wetlab_email+"</a> for wet-lab technical support and "+"<a href\"yangyi@tib.cas.cn\">Yi Yang</a>"+" for computing-lab technical support</p></div>"
+                                <p>Please contact to <a href\""+wetlab_email+"\">"+wetlab_email+"</a> for wet-lab technical support and "+"<a href\"aeocdctibcas@163.com\">Yi Yang</a>"+" for computing-lab technical support</p></div>"
 
                 #dtgeneSequence=formData["dtgeneSequence"])
                 #design sgrna
@@ -149,7 +149,7 @@ def sgrna(request,queryName="gBIG"):
                 request.session["userEmail"]=userEmail
                 request.session["sgrna_reportFilePath"]=sgrna_reportFilePath
                 #email
-                wetlab_email='yangyi@tib.cas.cn'
+                wetlab_email='aeocdctibcas@163.com'
                 subject="SgRNA"
                 content="SgRNA\n"
                 content+="PAM type is "+pam_value+"\n"
@@ -183,12 +183,12 @@ def assemble(request,queryName="component5Design"):
         form=formDict[queryName](request.POST,request.FILES)
         if form.is_valid():# 如果提交的数据合法
             formData=form.cleaned_data
-            
+
             if queryName=="designModule":
                 assembleComponentList=request.POST.get("assembleComponentList")
                 len_ha=request.POST.get("len_ha")
                 len_ha=int(len_ha) if len_ha else 20
-                
+
                 import util.dataEncapsulater as deer
                 #design primer
                 from func.designPrimer import primerList
@@ -201,7 +201,7 @@ def assemble(request,queryName="component5Design"):
                 request.session["assembleComponentList"]=assembleComponentList
                 request.session["len_ha"]=len_ha
                 request.session["primerDataList"]=primerDataList
-                
+
             if queryName=="sendAssemble":
                 #store user_submit
                 #prepare db
@@ -216,7 +216,7 @@ def assemble(request,queryName="component5Design"):
                 #close
                 dbConn.close()
                 #email assemble list
-                wetlab_email='yangyi@tib.cas.cn'
+                wetlab_email='aeocdctibcas@163.com'
                 subject="Assemble component"
                 content="Assemble Component\n"
                 content+="Assemble Component List: \n"+request.session["assembleComponentList"]+"\n"
@@ -224,12 +224,12 @@ def assemble(request,queryName="component5Design"):
                 content+="Length of homologous arm: \n"+str(request.session["len_ha"])+"\n"
                 msg=EmailMultiAlternatives(subject,content,from_email,[wetlab_email,])
                 msg.send()
-                
+
                 httpString="<div><h3>Design biocomponent</h3></div>\
                             <div><p>Task has been sent to laboratory</p>\
-                                <p>Please contact to <a href\""+wetlab_email+"\">"+wetlab_email+"</a> for wet-lab technical support and "+"<a href\"yangyi@tib.cas.cn\">Yi Yang</a>"+" for computing-lab technical support</p></div>"
-                
-                
+                                <p>Please contact to <a href\""+wetlab_email+"\">"+wetlab_email+"</a> for wet-lab technical support and "+"<a href\"aeocdctibcas@163.com\">Yi Yang</a>"+" for computing-lab technical support</p></div>"
+
+
                 #backup
                 #symbolList=symbol.split(",")
             #calculate success, direct to the result page
@@ -243,11 +243,11 @@ def search8Url(request,symbolType="enzymeId",symbolValue="KRED027"):
         return HttpResponse("Invalid symbol Type.")
     queryName="search"
     inputHtmlPath,resultHtmlPath=htmlPage()
-    
+
     resultTitle=["enzymeId","substrateName","productName",]
     parameterDic={symbolType:symbolValue}
     resultData,resultCount=selectData("enzyme",resultTitle,parameterDic)
-    
+
     #calculate success, direct to the result page
     return render(request,resultHtmlPath,locals())'''
 
@@ -282,14 +282,14 @@ def componentList(request,organism,**kargs):
 def index(request):
     #overview
     resultTitle=["enzymeId","substrateName","productName",]
-    
+
     #fetch data
     import MySQLdb
     import util.dbOperator as dbor
     from properties import dbProperties
     dbConn = MySQLdb.connect(host=dbProperties["dbHost"],user=dbProperties["dbUser"],passwd=dbProperties["dbPw"],db="enzymetib",charset='utf8')
     dbCursor = dbConn.cursor()
-    
+
     tableName="enzyme"
     fieldNameArray=resultTitle
     parameterDic={}
@@ -302,7 +302,7 @@ def index(request):
             parameterTitle.append(k)
         sqlString=sqlString+" where ("+(",".join(parameterTitle))+")=('"+("','".join(parameterData))+"')"
     #logger.debug(sqlString)
-    
+
     sqlResultData,sqlResultCount=dbor.sqlSelect(sqlString,dbCursor)
     #logger.debug(sqlResultCount)
 
@@ -311,7 +311,7 @@ def index(request):
 
     resultData,resultCount=sqlResultData,sqlResultCount
     #resultData,resultCount=selectData("enzyme",resultTitle,{})
-    
+
     return render(request, os.path.join(htmlFolderPath,'index.html').replace('\\', '/'),locals())'''
 
 def gBIG_help(request):
