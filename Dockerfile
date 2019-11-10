@@ -16,12 +16,14 @@ RUN /opt/miniconda3/bin/conda config --add channels https://mirrors.tuna.tsinghu
 RUN /opt/miniconda3/bin/conda install -y cas-offinder
 COPY requirement.txt ./requirement.txt
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+RUN pip install esdk-obs-python --trusted-host pypi.org
 RUN pip install -r requirement.txt
 COPY ref/ ./ref
 COPY bioeledbtib ./bioeledbtib
 COPY outlab ./outlab
 
 WORKDIR /home/webservice/bioeledbtib
+RUN python genomedownload.py
 RUN python manage.py makemigrations
 RUN python manage.py migrate
 CMD python manage.py runserver 0.0.0.0:8888
