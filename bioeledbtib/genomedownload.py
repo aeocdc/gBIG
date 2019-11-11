@@ -8,8 +8,8 @@ Created on Mon Dec  3 14:19:17 2018
 from obs import ObsClient
 
 obsClient = ObsClient(
-    access_key_id='ENLJSZAHPDGFVCYH5JGS',
-    secret_access_key='NMfvQFKWVJvyG1ajPj8oU3Az4VPQkJGonqEw8u1O',
+    access_key_id='XXXXXXXXXXXXX',
+    secret_access_key='XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
     server='https://obs.cn-north-1.myhuaweicloud.com'
     )
 
